@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "MD to X · 长文工作台",
+  "version": "0.2.6",
+  "description": "在侧边栏编辑和预览 Markdown，导入 X 长文空白草稿。",
+  "minimum_chrome_version": "116",
+  "permissions": [
+    "sidePanel",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "action": {
+    "default_title": "打开 MD to X"
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  }
+}

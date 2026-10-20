@@ -1,0 +1,126 @@
+.prose {
+  font-size: 14px;
+  line-height: 1.95;
+  color: var(--text);
+}
+.prose > :first-child {
+  margin-top: 0;
+}
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  line-height: 1.5;
+  margin: 1.6em 0 0.7em;
+  font-weight: 650;
+  letter-spacing: -0.4px;
+}
+.prose h1 {
+  font-size: 26px;
+}
+.prose h2 {
+  font-size: 21px;
+}
+.prose h3 {
+  font-size: 18px;
+}
+.prose h4,
+.prose h5,
+.prose h6 {
+  font-size: 16px;
+}
+.prose p {
+  margin: 0 0 1.2em;
+}
+.prose strong {
+  font-weight: 650;
+}
+.prose a {
+  color: inherit;
+  text-decoration-color: #a0a69a;
+  text-underline-offset: 3px;
+}
+.prose ul,
+.prose ol {
+  padding-left: 1.5em;
+  margin-bottom: 1.3em;
+}
+.prose li {
+  padding-left: 0.25em;
+  margin: 0.3em 0;
+}
+.prose blockquote {
+  margin: 1.3em 0;
+  border-left: 2px solid #b5bcb0;
+  padding: 0 0 0 15px;
+  color: var(--muted);
+}
+.prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+.prose code {
+  font:
+    11px/1.8 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+  background: var(--surface);
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+.prose pre {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 14px;
+  overflow: auto;
+  white-space: pre;
+}
+.prose pre code {
+  padding: 0;
+}
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 28px 0;
+}
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  display: block;
+  margin: 18px 0;
+}
+.prose table {
+  display: block;
+  overflow: auto;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin: 20px 0;
+}
+.prose th,
+.prose td {
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  text-align: left;
+}
+.prose th {
+  background: var(--surface);
+}
+.image-placeholder {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px dashed var(--line);
+  border-radius: 5px;
+  padding: 18px;
+  font-size: 11px;
+  color: var(--muted);
+  margin: 16px 0;
+}
+.image-placeholder svg {
+  flex-shrink: 0;
+}

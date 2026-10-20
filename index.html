@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>MD to X · 长文工作台</title>
+  </head>
+  <body>
+    <div class="app">
+      <header class="masthead">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">M<span>↗</span></span>
+          <div>
+            <h1>MD to X</h1>
+            <span class="brand-caption">长文工作台</span>
+          </div>
+        </div>
+        <button id="import" class="button quiet" title="导入 Markdown 文件">
+          <span data-icon="upload"></span>导入 .md
+        </button>
+      </header>
+      <div id="demo-banner" class="demo-banner" hidden>
+        界面预览模式 <span>写入 X 需加载 Chrome 扩展</span>
+      </div>
+      <nav class="tabs" aria-label="工作区">
+        <button class="tab active" data-tab="writing" aria-current="page">
+          写作
+        </button>
+        <button class="tab" data-tab="assets">
+          图片<span id="asset-count" class="badge">0</span>
+        </button>
+        <button class="tab" data-tab="drafts">
+          草稿<span id="draft-count" class="badge">0</span>
+        </button>
+        <button id="help" class="icon-button help-button" aria-label="使用说明">
+          <span data-icon="help"></span>
+        </button>
+      </nav>
+
+      <main id="writing" class="workspace">
+        <div class="document-meta">
+          <span class="file-label"
+            ><span data-icon="file"></span
+            ><span id="filename">未命名.md</span></span
+          ><span id="save-state">仅保存在本机</span>
+        </div>
+        <div class="toolbar" aria-label="Markdown 格式工具">
+          <div class="format-tools">
+            <button
+              class="icon-button bold"
+              data-format="bold"
+              aria-label="加粗"
+              title="加粗 (⌘/Ctrl+B)"
+            >
+              B
+            </button>
+            <button
+              class="icon-button italic"
+              data-format="italic"
+              aria-label="斜体"
+              title="斜体 (⌘/Ctrl+I)"
+            >
+              I
+            </button>
+            <button
+              class="icon-button"
+              data-format="heading"
+              aria-label="插入标题"
+              title="标题"
+            >
+              H<span class="sub">2</span>
+            </button>
+            <button
+              class="icon-button"
+              data-format="subheading"
+              aria-label="插入副标题"
+              title="副标题"
+            >
+              H<span class="sub">3</span>
+            </button>
+            <button
+              class="icon-button"
+              data-format="quote"
+              aria-label="插入引用"
+              title="引用"
+            >
+              <span data-icon="quote"></span>
+            </button>
+            <button
+              class="icon-button"
+              data-format="list"
+              aria-label="插入列表"
+              title="列表"
+            >
+              <span data-icon="list"></span>
+            </button>
+            <button
+              class="icon-button"
+              data-format="ordered-list"
+              aria-label="插入有序列表"
+              title="有序列表"
+            >
+              <span data-icon="ordered-list"></span>
+            </button>
+            <button
+              class="icon-button"
+              data-format="link"
+              aria-label="插入链接"
+              title="链接"
+            >
+              <span data-icon="link"></span>
+            </button>
+            <button
+              class="icon-button"
+              data-format="image"
+              aria-label="插入图片语法"
+              title="图片"
+            >
+              <span data-icon="image"></span>
+            </button>
+            <button
+              class="icon-button"
+              data-format="code"
+              aria-label="插入代码块"
+              title="代码块"
+            >
+              <span data-icon="code"></span>
+            </button>
+          </div>
+          <div class="view-switch" aria-label="编辑视图">
+            <button
+              id="source-view"
+              class="selected"
+              aria-pressed="true"
+              title="Markdown 源码"
+            >
+              <span data-icon="code"></span></button
+            ><button id="preview-view" aria-pressed="false" title="文章预览">
+              <span data-icon="eye"></span>
+            </button>
+          </div>
+        </div>
+        <div id="drop-zone" class="editor-area">
+          <div id="welcome" class="welcome">
+            <p class="eyebrow">MARKDOWN → X ARTICLE</p>
+            <h2>好文章，<br />不用再排一遍。</h2>
+            <p class="welcome-description">
+              拖入一份 Markdown，<br />在这里编辑、预览，写入 X 长文草稿。
+            </p>
+            <button id="welcome-import" class="button primary">
+              <span data-icon="upload"></span>选择 Markdown 文件
+            </button>
+            <button id="sample" class="text-button">
+              先试一篇示例 <span aria-hidden="true">↗</span>
+            </button>
+            <div class="welcome-note">
+              <span data-icon="lock"></span>本地保存 · 无需额外账号
+            </div>
+          </div>
+          <div id="document" class="document" hidden>
+            <label class="sr-only" for="article-title">文章标题</label>
+            <input
+              id="article-title"
+              class="title-input"
+              placeholder="文章标题"
+              autocomplete="off"
+            />
+            <div id="source-container" class="source-container">
+              <label class="sr-only" for="markdown">Markdown 正文</label
+              ><textarea
+                id="markdown"
+                spellcheck="false"
+                placeholder="在这里粘贴或编写 Markdown…"
+              ></textarea>
+            </div>
+            <article
+              id="preview"
+              class="prose"
+              aria-label="文章预览"
+              hidden
+            ></article>
+          </div>
+          <div id="drop-overlay" class="drop-overlay" hidden>
+            <span data-icon="upload"></span>松开，导入这篇文章
+          </div>
+        </div>
+        <details id="checks" class="checks" hidden>
+          <summary id="checks-summary">导入检查</summary>
+          <ul id="check-list"></ul>
+        </details>
+      </main>
+
+      <section id="assets" class="secondary-panel" hidden>
+        <div class="section-heading">
+          <span class="eyebrow">ARTICLE ASSETS</span>
+          <h2>文章里的图片</h2>
+          <p>
+            选择文章所在文件夹，自动匹配 Markdown
+            中的相对路径。仅访问你选择的文件。
+          </p>
+        </div>
+        <button id="choose-folder" class="button outline wide">
+          <span data-icon="folder"></span>选择图片文件夹
+        </button>
+        <p id="folder-state" class="muted small">
+          文件夹可包含子目录；关闭侧栏后需重新选择。
+        </p>
+        <div class="asset-heading">
+          <span id="image-summary">0 张图片</span>
+        </div>
+        <div id="image-list" class="image-list"></div>
+      </section>
+
+      <section id="drafts" class="secondary-panel" hidden>
+        <div class="section-heading">
+          <span class="eyebrow">LOCAL DRAFTS</span>
+          <h2>留住每一次动笔</h2>
+          <p>
+            当前编辑内容自动保存。点击「存草稿」可另存一个版本，最多保留 20 份。
+          </p>
+        </div>
+        <div id="draft-list"></div>
+      </section>
+
+      <footer class="bottom-bar">
+        <div class="editor-connection">
+          <div>
+            <span id="connection-dot" class="status-dot"></span
+            ><span id="connection-text">尚未连接 X 编辑器</span>
+          </div>
+          <button id="check-editor" class="text-button small">检查连接</button>
+        </div>
+        <div
+          id="status-message"
+          class="status-message"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></div>
+        <div id="image-progress" class="muted small" role="status" hidden></div>
+        <progress
+          id="progress"
+          max="100"
+          value="0"
+          aria-label="写入进度"
+          hidden
+        ></progress>
+        <div class="footer-actions">
+          <span id="stats" class="stats">0 字符 · 0 图</span>
+          <div>
+            <button id="save-draft" class="button quiet">存草稿</button
+            ><button id="write" class="button primary">
+              <span data-icon="send"></span>写入 X
+            </button>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <input
+      id="file-input"
+      type="file"
+      accept=".md,.markdown,text/markdown,text/plain"
+      hidden
+    />
+    <input id="folder-input" type="file" webkitdirectory multiple hidden />
+    <dialog id="help-dialog">
+      <form method="dialog">
+        <div class="dialog-heading">
+          <h2>从 Markdown 到 X 长文</h2>
+          <button class="icon-button" aria-label="关闭说明">×</button>
+        </div>
+        <ol>
+          <li>导入 Markdown 文件，也可以直接粘贴正文。</li>
+          <li>切换预览，检查标题和格式；有本地图片时，选择文章所在文件夹。</li>
+          <li>打开 X 的「文章」，新建空白草稿，点击「检查连接」。</li>
+          <li>点击「写入 X」，等待图片和正文导入，再到 X 检查和发布。</li>
+        </ol>
+        <p>
+          插件只写入空白草稿，避免覆盖已有内容。X 账号需要具备长文创作权限。
+        </p>
+        <p>
+          表格按 X 原生 Markdown
+          内容块导入，保留行列和对齐；代码块保留语言标记、缩进和空行。图片在写入前需全部准备就绪。
+        </p>
+        <button class="button primary wide">知道了</button>
+      </form>
+    </dialog>
+    <script type="module" src="/src/sidepanel.js"></script>
+  </body>
+</html>
