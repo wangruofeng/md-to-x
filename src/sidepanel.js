@@ -514,8 +514,10 @@ document.querySelectorAll("[data-icon]").forEach((el) => {
       eye: "◉",
       lock: "◇",
       folder: "▱",
-      send: "↗",
     }[el.dataset.icon] || "";
+  if (el.dataset.icon === "send")
+    el.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>';
   if (el.dataset.icon === "ordered-list")
     el.innerHTML =
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6h11M10 12h11M10 18h11M3 3h1v5M3 8h3M3 12c0-2 3-2 3 0 0 1-3 3-3 4h3M3 19h2a1 1 0 0 1 0 2H3"/></svg>';
