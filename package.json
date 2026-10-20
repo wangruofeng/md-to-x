@@ -1,0 +1,14 @@
+{
+  "name": "md-to-x",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "在 Chrome 侧边栏将 Markdown 导入 X 长文草稿",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.js",
+    "test:e2e": "node scripts/test-browser.mjs",
+    "check": "npm test && npm run build"
+  }
+}
